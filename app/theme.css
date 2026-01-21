@@ -1,21 +1,21 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --color-slate-900: #0F172A;
-  --color-slate-800: #1E293B;
-  --color-slate-500: #64748B;
-  --color-slate-400: #94A3B8;
-  --color-slate-300: #CBD5E1;
-  --color-slate-200: #E2E8F0;
-  --color-slate-100: #F1F5F9;
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-500: #64748b;
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
 
-  --color-violet-600: #7C3AED;
-  --color-violet-100: #EDE9FE;
+  --color-violet-600: #7c3aed;
+  --color-violet-100: #ede9fe;
 
-  --color-rose-500: #F43F5E;
-  --color-lime-300: #BEF264;
+  --color-rose-500: #f43f5e;
+  --color-lime-300: #bef264;
 
-  --color-amber-800: #92400E;
+  --color-amber-800: #92400e;
 }
 
 @theme inline {
@@ -34,6 +34,9 @@
   --color-lime-300: var(--color-lime-300);
 
   --color-amber-800: var(--color-amber-800);
+
+  --drop-shadow-button: 4px 4px 0 #000000;
+  --drop-shadow-icon: 2px 4px 0 #000000;
 }
 
 @layer utilities {
@@ -42,6 +45,7 @@
     font-weight: 400;
     line-height: 100%;
     letter-spacing: 0%;
+    
   }
 
   .text-16-bold {
