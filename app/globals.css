@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* 폰트 정의 */
 @font-face {
@@ -53,5 +53,3 @@ body {
   color: var(--foreground);
   font-family: 'NanumSquare', Arial, Helvetica, sans-serif;
 }
-
-
