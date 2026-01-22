@@ -1,6 +1,7 @@
 @import 'tailwindcss';
+@import './theme.css';
 
-/* 폰트 정의 */
+/* NanumSquare 폰트 설정 */
 @font-face {
   font-family: 'NanumSquare';
   font-weight: 300;
@@ -52,4 +53,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'NanumSquare', Arial, Helvetica, sans-serif;
+}
+input,
+textarea,
+button,
+select {
+  font-family: inherit;
 }
