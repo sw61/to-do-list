@@ -9,88 +9,89 @@ function cn(...inputs: ClassValue[]) {
 }
 
 const buttonVariants = cva(
-  'items-center justify-center flex h-14 text-16-bold rounded-3xl border-2 border-slate-900 shrink-0 transition-all duration-100 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50',
+  'items-center justify-center flex shrink-0 transition-all duration-100 active:translate-y-[2px] disabled:cursor-not-allowed disabled:opacity-50 border-2 border-slate-900',
   {
     variants: {
       variant: {
-        add: 'px-12 gap-2 bg-slate-200 drop-shadow-button',
-        delete: 'px-12 gap-2 bg-rose-500 text-white drop-shadow-button',
-        editSlate: 'px-12 gap-2 bg-slate-200 drop-shadow-button',
-        editLime: 'px-12 gap-2 bg-lime-300 drop-shadow-button',
-        violetAdd: 'px-12 gap-2 bg-violet-600 text-white drop-shadow-button',
-        slatePlus: 'w-14 h-14 bg-slate-200 drop-shadow-icon',
-        violetPlus: 'w-14 h-14 bg-violet-600 drop-shadow-icon',
+        add: 'h-14 w-[168px] gap-2 rounded-3xl text-16-bold drop-shadow-button',
+        delete: 'h-14 w-[168px] gap-2 rounded-3xl text-16-bold drop-shadow-button',
+        edit: 'h-14 w-[168px] gap-2 rounded-3xl text-16-bold drop-shadow-button',
+        plus: 'h-14 w-14 rounded-3xl drop-shadow-icon',
+      },
+      color: {
+        slate: 'bg-slate-200 text-slate-900',
+        violet: 'bg-violet-600 text-white',
+        rose: 'bg-rose-500 text-white',
+        lime: 'bg-lime-300 text-slate-900',
       },
     },
     defaultVariants: {
       variant: 'add',
+      color: 'slate',
     },
   }
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+  extends
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
+    VariantProps<typeof buttonVariants> {
   iconSrc?: string;
   iconAlt?: string;
 }
 
-// 1. 아이콘 매핑
 const VARIANT_ICONS: Record<string, string> = {
   add: '/images/plusSm.svg',
   delete: '/images/X.svg',
-  editSlate: '/images/check.svg',
-  editLime: '/images/check.svg',
-  violetAdd: '/images/plusSm.svg',
-  slatePlus: '/images/plusSm.svg',
-  violetPlus: '/images/plusSm.svg',
+  edit: '/images/check.svg',
+  plus: '/images/plusSm.svg',
 };
 
-// 2. 기본 텍스트 매핑
 const VARIANT_LABELS: Record<string, string> = {
   add: '추가하기',
   delete: '삭제하기',
-  editSlate: '수정 완료',
-  editLime: '수정 완료',
-  violetAdd: '추가하기',
+  edit: '수정 완료',
+  plus: '',
 };
 
 const Button = ({
   children,
   className,
-  variant,
+  variant = 'add',
+  color,
   iconSrc,
   iconAlt = 'icon',
   ...props
 }: ButtonProps) => {
-  const currentVariant = variant || 'add';
-  const currentIconSrc = iconSrc || VARIANT_ICONS[currentVariant];
+  // Determine default color based on variant if not explicitly provided
+  const defaultColor = variant === 'delete' ? 'rose' : 'slate';
+  const finalColor = color || defaultColor;
 
-  // slate 계열은 아이콘을 검정색으로 반전 (흰색 SVG -> 검정색)
-  const shouldInvertIcon = currentVariant === 'add' || currentVariant === 'slatePlus';
-  const isIconOnly = currentVariant === 'slatePlus' || currentVariant === 'violetPlus';
+  const currentIconSrc = iconSrc || (variant ? VARIANT_ICONS[variant] : undefined);
+
+  // Invert icon if it's the plus icon (white by default) and background is light
+  const isPlusIcon = variant === 'add' || variant === 'plus';
+  const isLightBg = finalColor === 'slate' || finalColor === 'lime';
+  const shouldInvertIcon = isPlusIcon && isLightBg;
 
   return (
-    <button
-      className={cn(buttonVariants({ variant: currentVariant, className }))}
-      {...props}
-    >
+    <button className={cn(buttonVariants({ variant, color: finalColor, className }))} {...props}>
       {currentIconSrc && (
-        <div className="flex items-center justify-center shrink-0">
+        <div className="flex shrink-0 items-center justify-center">
           <Image
             src={currentIconSrc}
             alt={iconAlt}
             width={16}
             height={16}
-            className={cn(shouldInvertIcon && "invert")}
+            className={cn(shouldInvertIcon && 'invert')}
           />
         </div>
       )}
 
-      {/* variant에 따른 기본 텍스트 출력 (children이 없을 때만 기본값 사용) */}
-      {!isIconOnly && (
+      {/* Show label if not icon-only variant (plus) */}
+      {variant !== 'plus' && (
         <span className="leading-none whitespace-nowrap">
-          {children || VARIANT_LABELS[currentVariant]}
+          {children || (variant ? VARIANT_LABELS[variant] : '')}
         </span>
       )}
     </button>
