@@ -13,7 +13,7 @@ Next.js, Typescript, Tailwind CSS를 사용하여 개발한 To-Do List 입니다
 - **상태 토글**: 체크박스를 클릭하여 할 일의 완료 여부를 즉시 변경할 수 있습니다.
 - **반응형 레이아웃**: 데스크탑(Grid Layout)과 모바일 환경 모두에 최적화된 화면을 제공합니다.
 
-### 2. 할 일 상세 페이지 (`/items/{itemId}`)
+### 2. 할 일 상세 페이지 (`/{itemId}`)
 
 - **정보 수정**: 할 일의 제목, 메모, 완료 상태를 자유롭게 수정할 수 있습니다.
 - **이미지 업로드**:
@@ -84,12 +84,3 @@ Next.js, Typescript, Tailwind CSS를 사용하여 개발한 To-Do List 입니다
 │   └── types.ts          # 타입 정의
 └── public/               # 정적 자원 (이미지, 폰트)
 ```
-
-## 🎨 디자인 시스템
-
-- **Font**: NanumSquare (L, R, B, EB)
-- **Color Palette**:
-  - **Slate**: 기본 텍스트 및 배경 (Slate-50 ~ Slate-900)
-  - **Violet**: 메인 포인트 컬러 (Violet-600)
-  - **Rose**: 삭제 등 경고 액션 (Rose-500)
-  - **Lime**: 수정 완료 등 긍정 액션 (Lime-300)
